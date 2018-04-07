@@ -14,25 +14,17 @@ docker run -dt --restart unless-stopped --name otrs-daemon --mount source=otrs-c
 ```
 Note that the OTRS daemon will not be able to run without a configured and installed OTRS system with a functional database and web frontend.
 
-## Building
-
-If you would like to build this image yourself, then the process is straightforward: simply download/clone the repository somewhere and run the below command:
-```
-docker build -t otrs-daemon:6.x .
-```
-The actual daemon perl code and files are all inside the otrs-fcgi container, so there is no need to rebuild this image for new minor versions of OTRS 6. This image simply provies an environment (crond instance and perl installation) that the OTRS daemon processes can run within.
-
 ## About my images
 
-All of my containers follow my take on containerization best-practice:
+All of my containers follow these main guidelines:
 
- * __No unmaintainable gunk.__ No hand-hacked custom scripts or glue code that would need to be updated later.
+ * __Follow best practice.__ Adhere as closely as possible to the [official docker library image guidelines.](https://github.com/docker-library/official-images)
+ * __No version-dependent scripts.__ No custom scripts or glue code that would need to be updated alongside the hosted application.
  * __Small and simple.__ Based on official Alpine Linux with as minimal Dockerfiles and images as possible.
  * __One process, one container.__ No process supervisor daemons or hacks. Allow the container runtime to have full visibility of each running process.
- * __Disposable and immutable.__ Only user data is kept in persistent volumes. All application data is kept inside the container. Any container can be stopped and replaced without affecting the configuration state of the application.
- * __Security focused.__ All processes (that can be) are run by a dedicated application user with minimal permissions. All containers are tested and intended for use with docker user namespace remapping.
- * __True to the application.__ Defaults are not altered in any way, and no additions or subtractions are made to the application's functionality.
-
+ * __Disposable and immutable.__ Strict separation of user and application data means that any container can be stopped and replaced without affecting the configuration state of the application.
+ * __Security focused.__ No docker socket bind mounts, ever. All processes are run by a dedicated application user with minimal permissions where possible.
+ * __True to the application.__ The application's defaults are not altered in any way, and no additions or subtractions are made to functionality.
 If you like these guidelines, then please check out my other images here or on Dockerhub.
 
 [1]: https://github.com/snw35/otrs-docker
