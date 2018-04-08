@@ -24,11 +24,10 @@ RUN apk --no-cache --update add \
     perl-xml-parser \
     perl-yaml-libyaml \
     perl-text-csv_xs \
-    mini-sendmail \
-    perl-fcgi
+    mini-sendmail
 
 RUN adduser -u 5000 -S otrs \
     && echo '*/5 * * * * /opt/otrs/bin/otrs.Daemon.pl start' > /etc/crontabs/otrs \
     && chmod 0600 /etc/crontabs/otrs
 
-CMD ["crond", "-f", "-d", "0"]
+CMD ["crond", "-f"]
