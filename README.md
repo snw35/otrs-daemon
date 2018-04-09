@@ -28,3 +28,8 @@ All of my containers follow these main guidelines:
 If you like these guidelines, then please check out my other images here or on Dockerhub.
 
 [1]: https://github.com/snw35/otrs-docker
+
+
+***
+
+ * [Travis CI: ![Build Status](https://travis-ci.org/snw35/otrs-daemon.svg?branch=master)](https://travis-ci.org/snw35/otrs-daemon)
